@@ -17,6 +17,13 @@
 
 <img src="https://user-images.githubusercontent.com/2698003/229402115-f7463a82-dd03-45e1-820c-1ab29acf1048.png" width="400" />
 
+### 使用说明
+
+ChatGPT 的 API 默认是非流式输出的，如果想让他变成流式输出，需要将 `payload.body` 设置为 true。
+
+<img src="https://user-images.githubusercontent.com/2698003/229409663-8f228116-b56e-42e4-ae65-16eb1f040700.png" width="600" />
+
+
 ### License
 
 [MIT](./LICENSE)
