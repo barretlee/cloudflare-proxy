@@ -8,6 +8,7 @@ async function handleRequest(request) {
   let body;
   if (request.method === 'POST') {
     body = await request.json();
+    body.stream = false;
   }
   const authKey = request.headers.get('Authorization');
   if (!authKey) {
