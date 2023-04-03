@@ -17,3 +17,6 @@
 
 <img src="https://user-images.githubusercontent.com/2698003/229402115-f7463a82-dd03-45e1-820c-1ab29acf1048.png" width="400" />
 
+### License
+
+[MIT](./LICENSE)
