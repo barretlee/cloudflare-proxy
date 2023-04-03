@@ -8,7 +8,6 @@ async function handleRequest(request) {
   let body;
   if (request.method === 'POST') {
     body = await request.json();
-    body.stream = false;
   }
   const authKey = request.headers.get('Authorization');
   if (!authKey) {
@@ -30,12 +29,20 @@ async function handleRequest(request) {
     delete payload.body;
   }
 
-  const response = await fetch(fetchAPI, payload);
-  const results = await response.json();
-  return new Response(JSON.stringify(results), {
-    status: response.status,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  if (body && body.stream && body.stream === false) {
+    const results = await response.json();
+    return new Response(JSON.stringify(results), {
+      status: response.status,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } else {
+    const response = await fetch(fetchAPI, payload);
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: response.headers,
+    });
+  }
 }
