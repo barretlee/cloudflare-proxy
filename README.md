@@ -11,7 +11,7 @@
 2. 创建一个新的 Cloudflare Worker
 3. 将 [cloudflare-worker.js](./cloudflare-worker.js) 复制并粘贴到 Cloudflare Worker 编辑器中
 4. 保存并部署 Cloudflare Worker
-5. 在 Cloudflare Worker 详情页 -> Trigger -> Custom Domains 中为这个 Worker 添加一个域名
+5. 在 Worker 详情页 -> Trigger -> Custom Domains 中为这个 Worker 添加一个自定义域名
 
 为啥需要第五步？因为直接使用 Cloudflare 的域名，依然无法访问。
 
