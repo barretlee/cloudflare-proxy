@@ -21,7 +21,7 @@
 
 ChatGPT 的 API 默认是非流式输出的，如果想让他变成流式输出，需要将 `payload.stream` 设置为 true。
 
-```
+```js
 // 入参中如果包含了 stream=true，则表现形式为非流式输出
   const response = await fetch(fetchAPI, payload);
   if (body && body.stream && body.stream === false) {
