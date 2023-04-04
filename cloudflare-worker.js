@@ -29,6 +29,7 @@ async function handleRequest(request) {
     delete payload.body;
   }
 
+  const response = await fetch(fetchAPI, payload);
   if (body && body.stream && body.stream === false) {
     const results = await response.json();
     return new Response(JSON.stringify(results), {
@@ -38,7 +39,6 @@ async function handleRequest(request) {
       },
     });
   } else {
-    const response = await fetch(fetchAPI, payload);
     return new Response(response.body, {
       status: response.status,
       statusText: response.statusText,
