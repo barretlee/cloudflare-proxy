@@ -19,10 +19,27 @@
 
 ### 使用说明
 
-ChatGPT 的 API 默认是非流式输出的，如果想让他变成流式输出，需要将 `payload.body` 设置为 true。
+ChatGPT 的 API 默认是非流式输出的，如果想让他变成流式输出，需要将 `payload.stream` 设置为 true。
 
-<img src="https://user-images.githubusercontent.com/2698003/229409663-8f228116-b56e-42e4-ae65-16eb1f040700.png" width="600" />
-
+```
+// 入参中如果包含了 stream=true，则表现形式为非流式输出
+  const response = await fetch(fetchAPI, payload);
+  if (body && body.stream && body.stream === false) {
+    const results = await response.json();
+    return new Response(JSON.stringify(results), {
+      status: response.status,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } else {
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: response.headers,
+    });
+  }
+```
 
 ### License
 
