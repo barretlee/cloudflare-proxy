@@ -6,7 +6,7 @@ async function handleRequest(request) {
   const url = new URL(request.url);
   const fetchAPI = request.url.replace(url.host, 'api.openai.com');
   
-  // 部分代理工具，请求又浏览器发起，跨域请求时会先发送一个 preflight 进行检查，也就是 OPTIONS 请求
+  // 部分代理工具，请求由浏览器发起，跨域请求时会先发送一个 preflight 进行检查，也就是 OPTIONS 请求
   // 需要响应该请求，否则后续的 POST 会失败
   const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
