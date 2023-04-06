@@ -32,7 +32,7 @@ async function handleRequest(request) {
   // 在 Cloudflare 中，HEAD 和 GET 请求带 body 会报错
   if (['HEAD', 'GET'].includes(request.method)) delete payload.body;
 
-  // 入参中如果包含了 stream=true，则表现形式为非流式输出
+  // 入参中如果包含了 stream=true，则表现形式为流式输出
   const response = await fetch(fetchAPI, payload);
   if (body && body.stream !== true) {
     const results = await response.json();
