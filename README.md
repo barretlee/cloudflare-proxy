@@ -21,7 +21,7 @@
 
 ChatGPT 的 API 默认是非流式输出的，如果想让他变成流式输出，需要将 `payload.stream` 设置为 true，大部分的客户端都已经加上了这个参数。
 
-<img src="https://user-images.githubusercontent.com/2698003/229670098-b093b04c-22fe-4dd8-85be-b55a29b34c87.png" width="500" />
+https://github.com/barretlee/cloudflare-proxy/blob/a7cf8ecfd3eed5c4d76f82f4f4387ed4ef39c6f3/cloudflare-worker.js#L36-L50
 
 ### License
 
