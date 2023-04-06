@@ -34,7 +34,7 @@ async function handleRequest(request) {
 
   // 入参中如果包含了 stream=true，则表现形式为非流式输出
   const response = await fetch(fetchAPI, payload);
-  if (body && body.stream && body.stream === false) {
+  if (body && body.stream !== true) {
     const results = await response.json();
     return new Response(JSON.stringify(results), {
       status: response.status,
