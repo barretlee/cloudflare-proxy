@@ -10,13 +10,15 @@ async function handleRequest(request) {
   // 需要响应该请求，否则后续的 POST 会失败
   const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'OPTIONS',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': '*',
   };
   if (request.method === 'OPTIONS') return new Response(null, { headers: corsHeaders });
 
   let body;
-  if (request.method === 'POST') body = await request.json();
+  if (request.method === 'POST' && request.headers.get("Content-Type") === "application/json") {
+    body = await request.json();
+  }
 
   const authKey = request.headers.get('Authorization');
   if (!authKey) return new Response("Not allowed", { status: 403 });
@@ -32,21 +34,10 @@ async function handleRequest(request) {
   // 在 Cloudflare 中，HEAD 和 GET 请求带 body 会报错
   if (['HEAD', 'GET'].includes(request.method)) delete payload.body;
 
-  // 入参中如果包含了 stream=true，则表现形式为非流式输出
   const response = await fetch(fetchAPI, payload);
-  if (body && body.stream && body.stream === false) {
-    const results = await response.json();
-    return new Response(JSON.stringify(results), {
-      status: response.status,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  } else {
-    return new Response(response.body, {
-      status: response.status,
-      statusText: response.statusText,
-      headers: response.headers,
-    });
-  }
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: response.headers,
+  });
 }
