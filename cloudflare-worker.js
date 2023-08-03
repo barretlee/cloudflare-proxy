@@ -15,8 +15,11 @@ async function handleRequest(request) {
   };
   if (request.method === 'OPTIONS') return new Response(null, { headers: corsHeaders });
 
-  let body;
-  if (request.method === 'POST') body = await request.json();
+  let contentType = request.headers.get('Content-Type')
+  if (contentType && contentType.startsWith("multipart/form-data")) {
+    let newRequest = new Request(fetchAPI, request);
+    return await fetch(newRequest);
+  }
 
   const authKey = request.headers.get('Authorization');
   if (!authKey) return new Response("Not allowed", { status: 403 });
