@@ -21,6 +21,9 @@ async function handleRequest(request) {
     return await fetch(newRequest);
   }
 
+  let body;
+  if (request.method === 'POST') body = await request.json();
+  
   const authKey = request.headers.get('Authorization');
   if (!authKey) return new Response("Not allowed", { status: 403 });
   
